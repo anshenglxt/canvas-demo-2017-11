@@ -7,32 +7,32 @@ listenToUser(yyy)
 
 
 var eraserEnabled = false
-eraser.onclick = function() {
+eraser.onclick = function () {
     eraserEnabled = true;
     eraser.classList.add('active');
     pen.classList.remove('active');
 }
-pen.onclick = function(){
+pen.onclick = function () {
     eraserEnabled = false;
     pen.classList.add('active')
     eraser.classList.remove('active');
 }
 
-red.onclick = function(){
+red.onclick = function () {
     context.fillStyle = 'red';
     context.strokeStyle = 'red';
     red.classList.add('active');
     blue.classList.remove('active');
     green.classList.remove('active');
 }
-green.onclick = function(){
+green.onclick = function () {
     context.fillStyle = 'green';
     context.strokeStyle = 'green';
     green.classList.add('active');
     blue.classList.remove('active');
     red.classList.remove('active');
 }
-blue.onclick = function(){
+blue.onclick = function () {
     context.fillStyle = 'blue';
     context.strokeStyle = 'blue';
     blue.classList.add('active');
@@ -41,30 +41,29 @@ blue.onclick = function(){
 }
 /******/
 
-thin.onclick = function(){
+thin.onclick = function () {
     lineWidth = 5;
 }
-thick.onclick = function(){
+thick.onclick = function () {
     lineWidth = 10;
 }
 
-clear.onclick = function(){
-    
-    context.clearRect(0,0,yyy.width,yyy.height);  
+clear.onclick = function () {
+
+    context.clearRect(0, 0, yyy.width, yyy.height);
 }
-save.onclick = function(){
+save.onclick = function () {
     var url = yyy.toDataURL("image/png");
-        var a = document.createElement('a');
+    var a = document.createElement('a');
     document.body.appendChild(a);
     a.href = url;
     a.download = '我的画';
-    a.target = '_blank';
-    a.click();
+        a.click();
 }
 function autoSetCanvasSize(canvas) {
     setCanvasSize()
 
-    window.onresize = function() {
+    window.onresize = function () {
         setCanvasSize()
     }
 
@@ -100,9 +99,9 @@ function listenToUser(canvas) {
         x: undefined,
         y: undefined
     }
-    if(document.body.ontouchstart !== undefined){
+    if (document.body.ontouchstart !== undefined) {
         console.log('手机')
-        canvas.ontouchstart = function(aaa) {
+        canvas.ontouchstart = function (aaa) {
             console.log(aaa)
             var x = aaa.touches[0].clientX
             var y = aaa.touches[0].clientY
@@ -116,12 +115,12 @@ function listenToUser(canvas) {
                 }
             }
         }
-        canvas.ontouchmove = function(aaa) {
+        canvas.ontouchmove = function (aaa) {
             var x = aaa.touches[0].clientX
             var y = aaa.touches[0].clientY
-    
-            if (!using) {return}
-    
+
+            if (!using) { return }
+
             if (eraserEnabled) {
                 context.clearRect(x - 5, y - 5, 10, 10)
             } else {
@@ -132,14 +131,14 @@ function listenToUser(canvas) {
                 drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
                 lastPoint = newPoint
             }
-    
+
         }
-        canvas.ontouchup = function(aaa) {
+        canvas.ontouchup = function (aaa) {
             using = false
         }
-    }else{
+    } else {
         console.log(document.body.ontouchstart)
-        canvas.onmousedown = function(aaa) {
+        canvas.onmousedown = function (aaa) {
             var x = aaa.clientX
             var y = aaa.clientY
             using = true
@@ -152,12 +151,12 @@ function listenToUser(canvas) {
                 }
             }
         }
-        canvas.onmousemove = function(aaa) {
+        canvas.onmousemove = function (aaa) {
             var x = aaa.clientX
             var y = aaa.clientY
-    
-            if (!using) {return}
-    
+
+            if (!using) { return }
+
             if (eraserEnabled) {
                 context.clearRect(x - 5, y - 5, 10, 10)
             } else {
@@ -168,11 +167,11 @@ function listenToUser(canvas) {
                 drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
                 lastPoint = newPoint
             }
-    
+
         }
-        canvas.onmouseup = function(aaa) {
+        canvas.onmouseup = function (aaa) {
             using = false
         }
     }
-    
+
 }
